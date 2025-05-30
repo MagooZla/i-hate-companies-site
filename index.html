@@ -4,36 +4,72 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The I Hate Companies Company</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #111;
-      color: #eee;
-      font-family: monospace;
-      padding: 40px;
+      background-color: #000;
+      color: #00ff66;
+      font-family: 'VT323', monospace;
+      padding: 60px 20px;
       text-align: center;
+      font-size: 22px;
+      animation: fadeIn 2s ease-in;
     }
+
     h1 {
-      font-size: 3em;
-      margin-bottom: 0.2em;
+      font-size: 4em;
+      margin-bottom: 0.3em;
+      text-shadow: 0 0 10px #0f0;
     }
+
     p {
-      font-size: 1.2em;
-      color: #aaa;
+      color: #aaffcc;
+      max-width: 700px;
+      margin: 0 auto 20px;
     }
+
     a {
-      color: #0f0;
+      color: #00ffff;
       font-weight: bold;
-      text-decoration: underline;
+      text-decoration: none;
+      transition: color 0.2s;
     }
+
+    a:hover {
+      color: #ff00ff;
+    }
+
     .button-link {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: #c00;
+      margin: 20px auto;
+      padding: 12px 30px;
+      background: #ff0033;
       color: #fff;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-weight: bold;
+      font-size: 1.2em;
+      box-shadow: 0 0 10px #ff0033;
+      transition: background 0.3s ease, transform 0.1s ease;
+    }
+
+    .button-link:hover {
+      background: #cc0022;
+      transform: scale(1.05);
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #0f0;
+      box-shadow: 0 0 8px #0f0;
+      width: 60%;
+      margin: 40px auto;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -41,14 +77,15 @@
   <h1>The I Hate Companies Company</h1>
   <p>Corporate satire, savage merch, and tools to expose the bullshit.</p>
 
-  <br><br>
   <a href="https://www.redbubble.com/people/YOUR-SHOP-HERE" target="_blank" class="button-link">
     Buy Our Shit
   </a>
 
-  <br><br><hr><br>
-  <h2>💬 Try the Bullshit Unraveler</h2>
-  <p>Unmask the spin. Ask any headline, claim, or corporate promise — and get told the raw truth.</p>
- <a href="unraveller.html">→ Launch The Bullshit Unraveller</a>
+  <hr>
+
+  <h2>💬 Try the Bullshit Unraveller</h2>
+  <p>Unmask the spin. Ask any headline, claim, or corporate promise — and get told the raw truth by our foul-mouthed AI.</p>
+  <a href="unraveller.html">→ Launch The Bullshit Unraveller</a>
+
 </body>
 </html>
