@@ -1,1 +1,111 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bullshit Unraveler</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #eee;
+      font-family: monospace;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    #chat {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
+      overflow-y: auto;
+      max-height: 70vh;
+    }
+    .msg {
+      margin-bottom: 15px;
+    }
+    .user {
+      color: #0af;
+    }
+    .bot {
+      color: #0f0;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      resize: vertical;
+    }
+    button {
+      margin-top: 10px;
+      background: #c00;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      color: #aaa;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>💥 The Bullshit Unraveler 💥</h1>
+  <div id="chat"></div>
+
+  <textarea id="userInput" rows="3" placeholder="Type something you want unraveled..."></textarea>
+  <button onclick="unravel()">Unravel the Bullshit</button>
+
+  <a href="index.html">← Back to The I Hate Companies Company</a>
+
+  <script>
+    let chatHistory = [
+      { role: "system", content: "You are the Bullshit Unraveler. You reply like a raw, foul-mouthed Aussie truth-teller. No sugar. No corporate tone. No slashes. Just raw clarity." }
+    ];
+
+    async function unravel() {
+      const input = document.getElementById("userInput").value;
+      if (!input.trim()) return;
+
+      const chatBox = document.getElementById("chat");
+      chatBox.innerHTML += `<div class="msg user"><strong>You:</strong> ${input}</div>`;
+
+      chatHistory.push({ role: "user", content: `Unravel this bullshit with brutal Aussie honesty:\n\n"${input}"` });
+
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer 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",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "openai/gpt-3.5-turbo",
+          messages: chatHistory
+        })
+      });
+
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content || "No response. Something went wrong.";
+      chatHistory.push({ role: "assistant", content: reply });
+
+      chatBox.innerHTML += `<div class="msg bot"><strong>Unraveler:</strong> ${reply}</div>`;
+      document.getElementById("userInput").value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
