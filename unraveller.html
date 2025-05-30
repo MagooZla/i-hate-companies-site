@@ -118,12 +118,41 @@
   <a href="index.html">← Back to The I Hate Companies Company</a>
 
   <script>
-    let chatHistory = [
-      { role: "system", content: "You are the Bullshit Unraveller. You reply like a raw, foul-mouthed Aussie truth-teller. No sugar. No corporate tone. No slashes. Just raw clarity." }
-    ];
+let chatHistory = [
+  { role: "system", content: "You are the Bullshit Unraveller. You reply like a raw, foul-mouthed Aussie truth-teller..." }
+];
 
-    async function unravel() {
-      const input = document.getElementById("userInput").value;
-      if (!input.trim()) return;
+async function unravel() {
+  const input = document.getElementById("userInput").value;
+  if (!input.trim()) return;
 
-      const chatBox = document.getElementB
+  const chatBox = document.getElementById("chat");
+  chatBox.innerHTML += `<div class="msg user"><strong>You:</strong> ${input}</div>`;
+
+  chatHistory.push({ role: "user", content: `Unravel this bullshit with brutal Aussie honesty:\n\n"${input}"` });
+
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer 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",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-3.5-turbo",
+        messages: chatHistory
+      })
+    });
+
+    const data = await res.json();
+    const reply = data.choices?.[0]?.message?.content || "No response. Something went wrong.";
+    chatHistory.push({ role: "assistant", content: reply });
+
+    chatBox.innerHTML += `<div class="msg bot"><strong>Unraveller:</strong> ${reply}</div>`;
+    document.getElementById("userInput").value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+  } catch (err) {
+    chatBox.innerHTML += `<div class="msg bot"><strong>Unraveller:</strong> API Error: ${err.message}</div>`;
+  }
+}
+</script>
