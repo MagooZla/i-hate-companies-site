@@ -29,5 +29,43 @@
 <a href="https://www.redbubble.com/people/YOUR-SHOP-HERE" target="_blank" style="color:#fff; background:#c00; padding:12px 24px; text-decoration:none; border-radius:5px; font-weight:bold;">
 Buy Our Shit
 </a>
+  <br><br><hr><br>
+<h2>💥 The Bullshit Unraveler 💥</h2>
+<p>Ask anything. Get raw, no-bullshit answers.</p>
+
+<textarea id="userInput" rows="4" cols="50" placeholder="Type something you want unraveled..."></textarea>
+<br><br>
+<button onclick="unravel()">Unravel the Bullshit</button>
+
+<pre id="response" style="margin-top:20px; white-space:pre-wrap; background:#222; padding:20px; border-radius:10px; color:#0f0;"></pre>
+
+<script>
+async function unravel() {
+  const input = document.getElementById("userInput").value;
+  const responseBox = document.getElementById("response");
+  responseBox.textContent = "Unraveling... hang tight.";
+
+  const rawPrompt = `Unravel this bullshit with brutal Aussie honesty, no sugar-coating, no corporate tone, no slashes. Reply like a bloke who's had enough of lies and ain't afraid to say it:\n\n"${input}"`;
+
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer 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",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "openai/gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are the Bullshit Unraveler. You reply like a raw, foul-mouthed Aussie truth-teller. No sugar. No corporate tone. No slashes. Just raw clarity." },
+        { role: "user", content: rawPrompt }
+      ]
+    })
+  });
+
+  const data = await res.json();
+  responseBox.textContent = data.choices?.[0]?.message?.content || "No response. Something went wrong.";
+}
+</script>
+
 </body>
 </html>
